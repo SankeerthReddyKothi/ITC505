@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Simple Calculator</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="content-wrapper">
+        <main class="calculator">
+            <input type="text" id="num1" placeholder="Enter number">
+            <input type="text" id="num2" placeholder="Enter number">
+            <button onclick="add()">Add</button>
+            <button onclick="subtract()">Subtract</button>
+            <button onclick="multiply()">Multiply</button>
+            <button onclick="divide()">Divide</button>
+            <p id="result">Result: </p>
+        </main>
+        <aside>
+            <a href="https://www.amazon.com/One-Piece-Vol-105/dp/1974743276/ref=sr_1_6?sr=8-6" target="_blank">
+                <img src="webop.jpg" alt="One Piece Manga">
+            </a>
+        </aside>
+    </div>
+    <footer>
+        <div class="addendum">
+            <p>Addendum:</p>
+            <p>This is a simple calculator application built with HTML, CSS, and JavaScript. It allows users to perform basic arithmetic operations such as addition, subtraction, multiplication, and division.</p>
+            <p>Solution:</p>
+            <p>The JavaScript code retrieves the input values, performs the selected operation, and displays the result. CSS is used for styling the layout and elements.</p>
+            <p>Difficulties Encountered:</p>
+            <p>Ensuring smooth user input validation and handling edge cases in the division operation were the main challenges. These were addressed by using parseFloat to convert input values to numbers and adding validation for division by zero.</p>
+        </div>
+        <p>Last updated: <span id="lastModified"></span></p>
+    </footer>
+    <script src="script.js"></script>
+    <script type="text/javascript">
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
+    </script>
+</body>
+</html>
+
+
+
+
+
+
