@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Adventure</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Press Start 2P', cursive;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+
+    #story {
+      margin-bottom: 20px;
+    }
+
+    #choices {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      background-color: #ff7f00;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffaa00;
+    }
+
+    #image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-top: 20px;
+      
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #333;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer span {
+      color: #ff7f00;
+    }
+  
+
+    div {
+      text-align: center;
+    }
+    @font-face {
+      font-family: 'Press Start 2P';
+      src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Digital Dungeon Master</h1>
+  </header>
+  <main>
+    <button onclick="startGame()">Start Game</button>
+  </main>
+  <div id="addendum" >
+  <h2>ADDENDUM</h2>
+<p><b>Development Process and Creative Choices:</b>
+<br>Conceptualization:
+  <br>Initial Idea Generation: The concept of a text-based adventure game was chosen due to its interactive and engaging nature.<br>Theme Selection: Opting for a dungeon escape theme provided a rich backdrop for exploration and decision-making.</li></ul>
+<br>Planning and Design:<br>
+Storyboarding: Outlining the narrative flow and decision points helped in structuring the game's progression.<br>Visual Aesthetics: Incorporating retro-style fonts and pixel art imagery enhanced the nostalgic gaming experience.</li></ul>
+<br> Technical Implementation:<br>HTML/CSS/JavaScript: Utilizing these web technologies enabled the creation of an interactive and visually appealing game interface.<br>Dynamic Content Generation: Using JavaScript to dynamically update the game content based on player choices enhanced interactivity.</li></ul>
+<br> Iterative Development:<br>Feedback Integration: Iteratively refining the storyline and choices based on user feedback ensured a more immersive gameplay experience.<br>Testing and Debugging: Rigorous testing was conducted to identify and resolve any bugs or inconsistencies in the game mechanics.</li></ul></p>
+<p><b>Challenges Faced and Solutions:</b><br>
+  Narrative Cohesion:<br>Challenge: Maintaining a cohesive storyline with multiple branching paths posed a challenge in ensuring each choice felt meaningful.<br>Solution: Careful planning and scripting of consequences for each choice ensured coherence while offering diverse outcomes.</li></ul>
+<br>Visual Representation:<br>Challenge: Balancing visual aesthetics with performance optimization for web-based gameplay presented a challenge.
+<br>Solution: Opting for simple pixel art graphics and optimizing image sizes helped maintain visual appeal without compromising performance.</li></ul></p>
+<p><b>Insights Gained:</b><br>Interactive Storytelling:The development process highlighted the power of interactive storytelling in engaging and immersing players within a narrative world.<br>
+  Player Agency:
+  Providing players with meaningful choices fosters a sense of agency and investment in the outcome, enhancing overall engagement.<br>Iterative Improvement:
+  Iterative development and incorporating player feedback are essential for refining gameplay mechanics and enhancing player satisfaction.<br></p>
+<p><b>Conclusion:</b><br>The development of the "Choose Your Adventure" game involved a creative journey marked by conceptualization, technical implementation, and iterative refinement. Overcoming challenges and gaining insights along the way contributed to the creation of an immersive and enjoyable gaming experience for players.
+</p></div>
+  <footer>
+    <p>Last updated: <span id="lastModified"></span></p>
+  </footer>
+  <script>
+    const storyStages = {
+      start: {
+        text: "Welcome to the thrilling journey of 'Escape from the Digital Dungeon'! As you delve into the depths of this mysterious dungeon, you'll face challenges and make choices that shape your destiny. Are you ready to embark on this adventure?",
+        choices: ["Yes, let's go!", "No, I'm not ready."],
+        consequences: ["digitalDungeon", "exit"],
+        image: "dungeonentrance.png"
+      },
+      digitalDungeon: {
+        text: "You find yourself trapped in the Digital Dungeon, a virtual realm filled with dangers and mysteries. What do you do?",
+        choices: ["Explore further into the dungeon", "Search for an exit"],
+        consequences: ["explore", "findExit"],
+        image: "trappedindungeon.jpeg"
+      },
+      explore: {
+        text: "You stumble upon a hidden chamber with a locked chest. What's your next move?",
+        choices: ["Attempt to open the chest", "Leave the chamber and continue exploring", "You see another chest but is dangerous looking,Would you open it?", "You see a small mirror in the corner, Go close"],
+        consequences: ["openChest", "continueExploring", "unexpectedDiscovery", "supernaturalRealm"],
+        image: "hiddenchamber.jpeg"
+      },
+      findExit: {
+        text: "You search tirelessly for an exit and finally discover a hidden passage. Do you dare to explore it?",
+        choices: ["Enter the hidden passage", "Keep searching for another way out", "You see a small cave beside you, Go in", "You found ancient scripts written on the wall"],
+        consequences: ["enterPassage", "keepSearching", "tragicEnd"],
+        image: "searchanddiscover.jpeg"
+      },
+      openChest: {
+        text: "Congratulations! You found a magical artifact that grants you the power to escape the Digital Dungeon. You win!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "magicalartifact.jpeg"
+      },
+      continueExploring: {
+        text: "You continue exploring the dungeon, but unfortunately, you encounter a deadly trap. Game Over!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "deadlytrap.jpeg"
+      },
+      enterPassage: {
+        text: "You enter the hidden passage and it leads you to freedom outside the Digital Dungeon. You win!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "freedomoutside.jpeg"
+      },
+      keepSearching: {
+        text: "Despite your efforts, you couldn't find another way out. You remain trapped in the Digital Dungeon forever. Game Over!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "trappedforevcer.jpeg"
+      },
+      tragicEnd: {
+        text: "In a tragic turn of events, you fall victim to a fatal trap. Your adventure ends here. Game Over!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "victimtrap.jpeg"
+      },
+      unexpectedDiscovery: {
+        text: "You stumble upon a secret chamber filled with treasures beyond imagination. Congratulations, you've found the hidden treasure and become legendary!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "legendarytreasure.jpeg"
+      },
+      peacefulRetreat: {
+        text: "Opting for a peaceful retreat, you find a serene spot within the dungeon and decide to live a life of solitude. You may be trapped, but you've found inner peace.",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "solitude.jpeg"
+      },
+      supernaturalRealm: {
+        text: "You discover a portal to a supernatural realm beyond human comprehension. Embark on a new journey into the unknown!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "portal.jpeg"
+      },
+      legendaryHero: {
+        text: "Your bravery and cunning have made you a legendary hero. You emerge from the dungeon victorious, celebrated by all!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "celebrate.jpeg"
+      },
+      eternalGuardian: {
+        text: "Deciding to protect the dungeon's secrets, you become its eternal guardian. Your watchful gaze ensures no one disturbs its mysteries again.",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "eternalguardian.jpeg"
+      },
+      exit: {
+        text: "Maybe another time then. Farewell!",
+        choices: ["Restart Game"],
+        consequences: ["start"],
+        image: "farewell.jpeg"
+      },
+
+      // New endings
+
+    };
+
+    let currentStage = "start";
+
+    function startGame() {
+      currentStage = "start";
+      updatePage();
+    }
+
+    function updatePage() {
+      const stage = storyStages[currentStage];
+      document.body.innerHTML = `
+        <header>
+          <h1>Choose Your Adventure</h1>
+        </header>
+        <main>
+          <div id="story">
+            <p>${stage.text}</p>
+          </div>
+          <div id="choices">
+            ${stage.choices.map((choice, index) => `
+              <button onclick="makeChoice(${index})">${choice}</button>
+            `).join('')}
+          </div>
+          <div id="image">
+            <img src="${stage.image}" alt="Adventure Image">
+          </div>
+        </main>
+      `;
+    }
+
+    function makeChoice(index) {
+      const stage = storyStages[currentStage];
+      currentStage = stage.consequences[index];
+      updatePage();
+    }
+
+    var x = document.lastModified;
+    document.getElementById("lastModified").textContent = x;
+
+  </script>
+</body>
+
+</html>
