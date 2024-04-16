@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mad Lib Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #2e2d2d; /* Light grey */
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #c3e7e4;
+      padding: 20px;
+      border-radius: 20px; /* Rounded corners */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+      display: flex;
+      align-items: center;
+    }
+
+    .image-container {
+      flex: 0 0 30%;
+      margin-right: 40px;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px; /* Rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    .form-container {
+      flex: 1;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #4d4dff; /* Dark blue */
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #9933ff; /* Purple */
+    }
+
+    input[type="text"] {
+      width: calc(100% - 24px);
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #cccccc;
+      border-radius: 8px; /* Rounded corners */
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #4d4dff; /* Dark blue */
+      box-shadow: 0 0 10px rgba(77, 77, 255, 0.3); /* Soft shadow */
+    }
+
+    button[type="submit"] {
+      padding: 12px 24px;
+      background-color: #ff4d4d; /* Red */
+      color: #ffffff;
+      border: none;
+      border-radius: 8px; /* Rounded corners */
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #ff3333; /* Lighter red */
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #020202; /* Grey */
+      background-color: aqua;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="image-container">
+      <img src="Madlib.webp" alt="Mad Lib Image">
+    </div>
+    <div class="form-container">
+      <h1>Mad Lib</h1>
+      <form action="/submit-form.php" method="POST">
+
+        <label for="noun">Noun:</label>
+        <input type="text" id="noun" name="noun" required><br>
+
+        <label for="verb">Verb:</label>
+        <input type="text" id="verb" name="verb" required><br>
+
+        <label for="adjective">Adjective:</label>
+        <input type="text" id="adjective" name="adjective" required><br>
+
+        <label for="adverb">Adverb:</label>
+        <input type="text" id="adverb" name="adverb" required><br>
+
+        <label for="place">Place:</label>
+        <input type="text" id="place" name="place" required><br>
+
+        <button type="submit">Generate Mad Lib</button>
+      </form>
+    </div>
+  </div>
+<footer>
+    <p>Last updated: 
+        <span id="lastModified"></span>
+    </p>
+  
+
+    <b>HTML Code Explanation:</b><br>
+    
+      <b>Semantic HTML:</b> The HTML structure is based on semantic elements like &lt;header&gt;, &lt;main&gt;, &lt;footer&gt;, which enhances accessibility and SEO.<br>
+      <b>Styling:</b> The styling is done using inline CSS within the &lt;style&gt; tags. This keeps the styles scoped to this specific HTML file.<br>
+      <b>Form:</b> The form is structured with appropriate labels and input fields for collecting noun, verb, adjective, adverb, and place.<br>
+      <b>Form Submission:</b> The form action is set to /submit-form.php with the POST method. This specifies where the form data will be sent upon submission.<br>
+      <b>Last Updated:</b> JavaScript code at the end fetches the last modified date of the document and displays it in the footer.<br>
+    
+  
+    <!-- Addendum explaining the Server.js code -->
+    <br>
+    <b>Server.js Code Explanation:</b><br>
+    
+      <b>Express Setup:</b> The server is created using Express.js, a Node.js web application framework.<br>
+      <b>Middleware:</b> express.urlencoded() middleware is used to parse incoming request bodies with URL-encoded payloads. morgan middleware is used for logging HTTP requests.<br>
+      <b>Static Files:</b> The public directory is served as static files. This includes HTML, CSS, and any client-side JavaScript files.<br>
+      <b>POST Route Handler:</b> A POST route handler is defined for the /submit-form.php endpoint. It receives the form data, validates it, generates a Mad Lib, and sends back a response with the generated Mad Lib.<br>
+      <b>Validation:</b> The server checks if all fields (noun, verb, adjective, adverb, place) are filled. If any field is missing, it returns an error message asking the user to fill out all fields.<br>
+      <b>Response:</b> If all fields are filled, the server generates a Mad Lib using the form data and sends it back as a response to the client.<br>
+      <b>GET Route Handler:</b> A GET route handler is defined for the root endpoint /. It serves the HTML file for the Mad Lib form.<br>
+      <b>Port Configuration:</b> The server listens on port 80 by default, but it can be configured to listen on port 8080 locally using the command line argument 'local'.<br>
+    
+  </footer>
+
+  <script type="text/javascript">
+    var x = document.lastModified;
+    document.getElementById('lastModified').textContent = x;
+  </script>
+</body>
+</html>
