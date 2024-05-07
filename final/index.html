@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenge of Lights Out</title> 
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #c33764, #1d2671); /* Gradient background */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column; /* Adjusted to align elements vertically */
+            position: relative; /* Added for footer positioning */
+        }
+
+        h1 {
+            color: #dab552; /* Matched with background gradient */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow for better visibility */
+            margin-bottom: 20px; /* Added margin for spacing */
+            
+        }
+
+        #container {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            grid-template-rows: repeat(5, 50px);
+            border: 2px solid #333;
+            background-color: #fff;
+            padding: 5px;
+            margin-bottom: 20px; /* Added margin for spacing */
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #5288E9; /* Unique color combination */
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #82e0d2; /* Matched with background gradient */
+            color: #000; /* Text color adjusted for better visibility */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #FFA500; /* Lighter shade on hover */
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:active {
+            background-color: #FF8C00; /* Darker shade on click */
+        }
+
+        .message {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer {
+            position: absolute; /* Fixed position */
+            bottom: 10px; /* Adjusted for spacing */
+            color: #efeded; /* Darker shade of blue for contrast */
+            font-size: 14px; /* Adjusted font size */
+            /* Footer background color */
+            padding: 10px; /* Added padding for spacing */
+        }
+
+        #addendum {
+            margin-top: 20px; /* Added margin for spacing */
+        }
+
+        #addendum-content {
+            display: none; /* Initially hidden */
+            border-color: #2f5bb7; /* Light gray background */
+            padding: 20px; /* Added padding for spacing */
+            border-radius: 5px; /* Rounded corners */
+            margin-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Revenge of Lights Out</h1> 
+    <div id="container"></div>
+    <button onclick="resetBoard()">New Game</button>
+    <div class="message" id="message"></div>
+
+    
+        <button onclick="toggleAddendum()">Click for Addendum</button>
+        <div id="addendum-content">
+            <h2>Addendum</h2>
+            <h3>Process and Creative Choices:</h3>
+            <ul>
+                <li><strong>Design Concept:</strong>
+                    <ul>
+                        <li>The initial concept was to create a visually appealing version of the classic "Lights Out" game.</li>
+                        <li>A gradient background was chosen to add depth and visual interest to the design.</li>
+                    </ul>
+                </li>
+                <li><strong>Color Scheme:</strong>
+                    <ul>
+                        <li>The gradient background was selected to include vibrant colors (#ff00ff and #00ffff) to create a dynamic and engaging backdrop.</li>
+                        <li>Contrasting colors (#FFFF99 for buttons and footer text) were chosen to ensure readability and visual hierarchy.</li>
+                    </ul>
+                </li>
+                <li><strong>Typography and Text Effects:</strong>
+                    <ul>
+                        <li>The title ("Revenge of Lights Out") was styled with a subtle text shadow to enhance readability against the gradient background.</li>
+                        <li>Footer text color (#1f1f1f) was chosen to provide sufficient contrast against the background color.</li>
+                    </ul>
+                </li>
+                <li><strong>Button Styling:</strong>
+                    <ul>
+                        <li>The "New Game" button was styled with a transition effect to provide visual feedback when interacting with it.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>Challenges Faced and Solutions:</h3>
+            <ul>
+                <li><strong>Positioning Elements:</strong>
+                    <ul>
+                        <li>Positioning the footer at the bottom of the page while ensuring responsiveness presented a challenge.</li>
+                        <li><strong>Solution:</strong> We used absolute positioning and adjusted the bottom spacing to achieve the desired placement.</li>
+                    </ul>
+                </li>
+                <li><strong>Color Contrast:</strong>
+                    <ul>
+                        <li>Ensuring adequate color contrast for readability, especially with dynamic background colors, was crucial.</li>
+                        <li><strong>Solution:</strong> We carefully selected colors that provide sufficient contrast and adjusted text shadow and button hover effects for better visibility.</li>
+                    </ul>
+                </li>
+                
+            </ul>
+            <h3>Insights Gained:</h3>
+            <ul>
+                <li><strong>Balancing Aesthetics and Functionality:</strong>
+                    <ul>
+                        <li>Achieving a visually appealing design while maintaining functionality was a key consideration.</li>
+                        <li><strong>Insight:</strong> By iteratively testing and refining the design, we found a balance between aesthetics and usability.</li>
+                    </ul>
+                </li>
+                
+                </li>
+                <li><strong>Iterative Design Process:</strong>
+                    <ul>
+                        <li>Embracing an iterative design process enabled us to evolve the design gradually.</li>
+                        <li><strong>Insight:</strong> Iterative design allows for continuous improvement and optimization based on user feedback and design goals.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <footer>
+            <p>Last updated: 
+                <span id="lastModified"></span>
+            </p></footer>
+    <script type="text/javascript">
+         var x = document.lastModified;
+         document.getElementById('lastModified').textContent = x;
+    </script>
+    <script>
+        const size = 5;
+        let cells = [];
+
+        function createBoard() {
+            const container = document.getElementById("container");
+            for (let row = 0; row < size; row++) {
+                for (let col = 0; col < size; col++) {
+                    const cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    cell.onclick = function() { toggleCell(row, col); };
+                    container.appendChild(cell);
+                    cells.push(cell);
+                }
+            }
+            setSolvableInitialState();
+        }
+
+        function resetBoard() {
+            cells.forEach(cell => {
+                cell.style.backgroundColor = "black";
+            });
+            setSolvableInitialState();
+        }
+
+        function setSolvableInitialState() {
+            cells.forEach(cell => {
+                cell.style.backgroundColor = Math.random() < 0.5 ? "black" : "white";
+            });
+            let isSolvable = checkIfSolvable();
+            if (!isSolvable) {
+                toggleCell(Math.floor(Math.random() * size), Math.floor(Math.random() * size));
+            }
+        }
+
+        function checkIfSolvable() {
+            const tempCells = cells.map(cell => cell.style.backgroundColor);
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (tempCells[i * size + j] === "black") {
+                        toggleNeighbors(tempCells, i, j);
+                    }
+                }
+            }
+            return tempCells.every(cell => cell === "black");
+        }
+
+        function toggleCell(row, col) {
+            const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+            cells[row * size + col].style.backgroundColor = cells[row * size + col].style.backgroundColor === "white" ? "black" : "white";
+            toggleNeighbors(cells, row, col);
+            checkWin();
+        }
+
+        function toggleNeighbors(cellsArray, row, col) {
+            const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+            directions.forEach(([dr, dc]) => {
+                const nr = row + dr;
+                const nc = col + dc;
+                if (nr >= 0 && nr < size && nc >= 0 && nc < size) {
+                    cellsArray[nr * size + nc].style.backgroundColor = cellsArray[nr * size + nc].style.backgroundColor === "white" ? "black" : "white";
+                }
+            });
+        }
+
+        function checkWin() {
+            const isWin = cells.every(cell => cell.style.backgroundColor === "black");
+            if (isWin) {
+                alert("You win!");
+            }
+        }
+
+        function toggleAddendum() {
+            const addendumContent = document.getElementById("addendum-content");
+            if (addendumContent.style.display === "none") {
+                addendumContent.style.display = "block";
+            } else {
+                addendumContent.style.display = "none";
+            }
+        }
+
+        window.onload = function() {
+            createBoard();
+            var x = document.lastModified;
+            document.getElementById('lastModified').textContent = x;
+        };
+    </script>
+</body>
+</html>
